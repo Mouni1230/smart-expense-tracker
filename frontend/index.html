@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Smart Expense Tracker</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
@@ -26,7 +25,6 @@
         </button>
     </header>
 
-
     <main class="container">
 
         <!-- Welcome Section -->
@@ -36,7 +34,6 @@
                 <p>Track your spending and stay in control of your finances.</p>
             </div>
         </section>
-
 
         <!-- Statistics -->
         <section class="stats-grid">
@@ -50,7 +47,6 @@
                 </div>
             </div>
 
-
             <div class="stat-card">
                 <div class="stat-icon">🧾</div>
 
@@ -59,7 +55,6 @@
                     <h2 id="transactionCount">0</h2>
                 </div>
             </div>
-
 
             <div class="stat-card">
                 <div class="stat-icon">📊</div>
@@ -71,7 +66,6 @@
             </div>
 
         </section>
-
 
         <!-- Main Dashboard -->
         <section class="dashboard-grid">
@@ -88,7 +82,6 @@
                     <span class="header-icon">➕</span>
                 </div>
 
-
                 <form id="expenseForm" onsubmit="event.preventDefault(); addExpense();">
 
                     <label>Expense Title</label>
@@ -101,7 +94,6 @@
                             placeholder="e.g. Lunch with friends"
                         >
                     </div>
-
 
                     <label>Amount</label>
 
@@ -116,7 +108,6 @@
                         >
                     </div>
 
-
                     <label>Category</label>
 
                     <div class="input-wrapper">
@@ -129,7 +120,6 @@
                         >
                     </div>
 
-
                     <label>Date</label>
 
                     <div class="input-wrapper">
@@ -141,7 +131,6 @@
                         >
                     </div>
 
-
                     <button type="submit" class="primary-btn">
                         <span>＋</span>
                         Add Expense
@@ -150,7 +139,6 @@
                 </form>
 
             </div>
-
 
             <!-- Spending Overview -->
             <div class="card overview-card">
@@ -166,7 +154,6 @@
 
                 </div>
 
-
                 <div class="overview-content">
 
                     <div class="overview-circle">
@@ -175,45 +162,25 @@
                         <small>Total</small>
                     </div>
 
-
                     <div class="overview-info">
 
                         <div class="overview-row">
-                            <span>
-                                <i class="dot food"></i>
-                                Food
-                            </span>
-
+                            <span><i class="dot food"></i>Food</span>
                             <strong id="foodTotal">₹0</strong>
                         </div>
 
-
                         <div class="overview-row">
-                            <span>
-                                <i class="dot transport"></i>
-                                Transport
-                            </span>
-
+                            <span><i class="dot transport"></i>Transport</span>
                             <strong id="transportTotal">₹0</strong>
                         </div>
 
-
                         <div class="overview-row">
-                            <span>
-                                <i class="dot shopping"></i>
-                                Shopping
-                            </span>
-
+                            <span><i class="dot shopping"></i>Shopping</span>
                             <strong id="shoppingTotal">₹0</strong>
                         </div>
 
-
                         <div class="overview-row">
-                            <span>
-                                <i class="dot other"></i>
-                                Other
-                            </span>
-
+                            <span><i class="dot other"></i>Other</span>
                             <strong id="otherTotal">₹0</strong>
                         </div>
 
@@ -224,7 +191,6 @@
             </div>
 
         </section>
-
 
         <!-- Recent Expenses -->
         <section class="card expenses-card">
@@ -246,8 +212,6 @@
 
             </div>
 
-
-            <!-- Search and Filter -->
             <div class="filters">
 
                 <div class="search-box">
@@ -260,7 +224,6 @@
                         oninput="filterExpenses()"
                     >
                 </div>
-
 
                 <select
                     id="categoryFilter"
@@ -275,12 +238,8 @@
 
             </div>
 
-
-            <!-- Expense List -->
             <div id="expenseList"></div>
 
-
-            <!-- Empty State -->
             <div id="emptyState" class="empty-state">
 
                 <div class="empty-icon">🧾</div>
@@ -297,12 +256,9 @@
 
     </main>
 
-
-    <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
-
-    <script src="script.js"></script>
+    <script src="/static/script.js"></script>
 
 </body>
 </html>
