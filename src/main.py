@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query, status
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from .models import Expense, TotalResponse
 from .storage import expenses
@@ -8,6 +10,15 @@ app = FastAPI(
     description="REST API for managing personal expenses.",
     version="1.0.0",
 )
+
+# Serve CSS and JavaScript files
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+
+# Open HTML page when visiting the root URL
+@app.get("/")
+def home():
+    return FileResponse("frontend/index.html")
 
 
 @app.post("/expenses", response_model=Expense, status_code=status.HTTP_201_CREATED)
@@ -49,7 +60,10 @@ def get_total(
         for expense in expenses.values()
         if expense.category.lower() == category.lower()
     )
-    return TotalResponse(total=round(total, 2), category=category)
+    return TotalResponse(
+        total=round(total, 2),
+        category=category,
+    )
 
 
 @app.delete("/expenses/{expense_id}", status_code=status.HTTP_204_NO_CONTENT)
