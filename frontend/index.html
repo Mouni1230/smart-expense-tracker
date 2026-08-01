@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Expense Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="brand-icon">💰</div>
+            <div>
+                <h1>SmartSpend</h1>
+                <p>Personal Expense Tracker</p>
+            </div>
+        </div>
+
+        <button id="themeToggle" class="theme-btn" onclick="toggleTheme()">
+            🌙
+        </button>
+    </header>
+
+
+    <main class="container">
+
+        <!-- Welcome Section -->
+        <section class="welcome">
+            <div>
+                <h2>Good day! 👋</h2>
+                <p>Track your spending and stay in control of your finances.</p>
+            </div>
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats-grid">
+
+            <div class="stat-card total-card">
+                <div class="stat-icon">💰</div>
+
+                <div>
+                    <p>Total Spent</p>
+                    <h2>₹<span id="total">0</span></h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">🧾</div>
+
+                <div>
+                    <p>Transactions</p>
+                    <h2 id="transactionCount">0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+
+                <div>
+                    <p>Average Expense</p>
+                    <h2>₹<span id="averageExpense">0</span></h2>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Main Dashboard -->
+        <section class="dashboard-grid">
+
+            <!-- Add Expense -->
+            <div class="card add-card">
+
+                <div class="card-header">
+                    <div>
+                        <h2>Add New Expense</h2>
+                        <p>Record your latest spending</p>
+                    </div>
+
+                    <span class="header-icon">➕</span>
+                </div>
+
+
+                <form id="expenseForm" onsubmit="event.preventDefault(); addExpense();">
+
+                    <label>Expense Title</label>
+
+                    <div class="input-wrapper">
+                        <span>📝</span>
+                        <input
+                            type="text"
+                            id="title"
+                            placeholder="e.g. Lunch with friends"
+                        >
+                    </div>
+
+
+                    <label>Amount</label>
+
+                    <div class="input-wrapper">
+                        <span>₹</span>
+                        <input
+                            type="number"
+                            id="amount"
+                            placeholder="Enter amount"
+                            min="1"
+                            step="0.01"
+                        >
+                    </div>
+
+
+                    <label>Category</label>
+
+                    <div class="input-wrapper">
+                        <span>🏷️</span>
+
+                        <input
+                            type="text"
+                            id="category"
+                            placeholder="e.g. Food, Travel, Shopping"
+                        >
+                    </div>
+
+
+                    <label>Date</label>
+
+                    <div class="input-wrapper">
+                        <span>📅</span>
+
+                        <input
+                            type="date"
+                            id="date"
+                        >
+                    </div>
+
+
+                    <button type="submit" class="primary-btn">
+                        <span>＋</span>
+                        Add Expense
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- Spending Overview -->
+            <div class="card overview-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h2>Spending Overview</h2>
+                        <p>Your expense summary</p>
+                    </div>
+
+                    <span class="header-icon">📈</span>
+
+                </div>
+
+
+                <div class="overview-content">
+
+                    <div class="overview-circle">
+                        <span>₹</span>
+                        <strong id="overviewTotal">0</strong>
+                        <small>Total</small>
+                    </div>
+
+
+                    <div class="overview-info">
+
+                        <div class="overview-row">
+                            <span>
+                                <i class="dot food"></i>
+                                Food
+                            </span>
+
+                            <strong id="foodTotal">₹0</strong>
+                        </div>
+
+
+                        <div class="overview-row">
+                            <span>
+                                <i class="dot transport"></i>
+                                Transport
+                            </span>
+
+                            <strong id="transportTotal">₹0</strong>
+                        </div>
+
+
+                        <div class="overview-row">
+                            <span>
+                                <i class="dot shopping"></i>
+                                Shopping
+                            </span>
+
+                            <strong id="shoppingTotal">₹0</strong>
+                        </div>
+
+
+                        <div class="overview-row">
+                            <span>
+                                <i class="dot other"></i>
+                                Other
+                            </span>
+
+                            <strong id="otherTotal">₹0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Recent Expenses -->
+        <section class="card expenses-card">
+
+            <div class="expenses-header">
+
+                <div>
+                    <h2>Recent Transactions</h2>
+                    <p>Manage your latest expenses</p>
+                </div>
+
+                <button
+                    class="refresh-btn"
+                    onclick="loadExpenses()"
+                    title="Refresh expenses"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <!-- Search and Filter -->
+            <div class="filters">
+
+                <div class="search-box">
+                    <span>🔍</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search expenses..."
+                        oninput="filterExpenses()"
+                    >
+                </div>
+
+
+                <select
+                    id="categoryFilter"
+                    onchange="filterExpenses()"
+                >
+                    <option value="all">All Categories</option>
+                    <option value="food">🍔 Food</option>
+                    <option value="transport">🚗 Transport</option>
+                    <option value="shopping">🛍️ Shopping</option>
+                    <option value="other">📦 Other</option>
+                </select>
+
+            </div>
+
+
+            <!-- Expense List -->
+            <div id="expenseList"></div>
+
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+
+                <div class="empty-icon">🧾</div>
+
+                <h3>No expenses yet</h3>
+
+                <p>
+                    Start tracking your spending by adding your first expense.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
